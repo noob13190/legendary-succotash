@@ -1,0 +1,29 @@
+name: Ubuntu VM Demo
+
+on:
+  workflow_dispatch:   # allows you to run manually from Actions tab
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # This gives you a free Ubuntu VM
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Show Ubuntu version
+        run: lsb_release -a
+
+      - name: Update system & install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl git unzip
+
+      - name: Run custom commands
+        run: |
+          echo "Hello, this is my Ubuntu VM!"
+          uname -a
+          free -h
